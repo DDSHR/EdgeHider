@@ -1,0 +1,11 @@
+# SwiftPM build products and local workspace state
+.build/
+.swiftpm/
+.DS_Store
+
+# Bundled app builds and staged releases
+build/
+
+# Xcode user state
+*.xcuserstate
+xcuserdata/
