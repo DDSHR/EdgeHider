@@ -4,6 +4,19 @@ import XCTest
 final class WindowGeometryTests: XCTestCase {
     private let main = CGRect(x: 0, y: 0, width: 1440, height: 900)
 
+    func testRecoveryRejectsUnchangedOffscreenFrame() {
+        let target = CGRect(x: 200, y: 200, width: 400, height: 300)
+        let stillHidden = WindowGeometry.hidden(target, side: .left, screen: main, peek: 6)
+        XCTAssertFalse(WindowGeometry.matches(stillHidden, target))
+        XCTAssertTrue(WindowGeometry.matches(target.offsetBy(dx: 1, dy: -1), target))
+    }
+
+    func testRecoveryRejectsPartiallyRestoredAnimationSize() {
+        let target = CGRect(x: 200, y: 200, width: 400, height: 300)
+        let partial = CGRect(origin: target.origin, size: CGSize(width: 40, height: 30))
+        XCTAssertFalse(WindowGeometry.matches(partial, target))
+    }
+
     func testCoordinateConversionAcrossVerticallyStackedDisplays() {
         let frames = [CGRect(x: 100, y: 100, width: 400, height: 300),
                       CGRect(x: -900, y: 1100, width: 400, height: 300),

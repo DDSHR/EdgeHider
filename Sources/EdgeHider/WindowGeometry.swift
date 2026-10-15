@@ -2,6 +2,11 @@ import Foundation
 
 /// 所有内部几何使用 AppKit 全局坐标；AX 坐标始终以主显示器顶部为基准。
 enum WindowGeometry {
+    static func matches(_ actual: CGRect, _ target: CGRect, tolerance: CGFloat = 2) -> Bool {
+        abs(actual.minX - target.minX) <= tolerance && abs(actual.minY - target.minY) <= tolerance
+            && abs(actual.width - target.width) <= tolerance && abs(actual.height - target.height) <= tolerance
+    }
+
     static func converted(_ frame: CGRect, primaryTop: CGFloat) -> CGRect {
         CGRect(x: frame.minX, y: primaryTop - frame.maxY, width: frame.width, height: frame.height)
     }

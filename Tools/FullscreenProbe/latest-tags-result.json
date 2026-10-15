@@ -1,0 +1,35 @@
+{
+  "system": "macOS 26.5.2",
+  "test": "foreign real window into native fullscreen Space",
+  "accessibilityTrusted": 1,
+  "activeSpaceBefore": 254,
+  "fullscreenSpace": 254,
+  "originalWindowSpaces": [
+    1
+  ],
+  "tagDisplay": {
+    "levelReadResult": 0,
+    "spacesAfter": [
+      1
+    ],
+    "tagsAfter": 216172786413477889,
+    "setLevelResult": 0,
+    "levelBefore": 0,
+    "clearTagsResult": 0,
+    "spacesBefore": [
+      1
+    ],
+    "window": 14242,
+    "tagsBefore": 216172786413477889,
+    "accessibilityTrusted": 0,
+    "requestedConnection": 1152435,
+    "onScreenBefore": false,
+    "onScreenAfter": false,
+    "ownerReadResult": 0,
+    "setTagsResult": 0
+  },
+  "activeSpacesAfter": [
+    254
+  ],
+  "fullscreenStayedActive": true
+}

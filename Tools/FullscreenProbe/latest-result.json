@@ -1,0 +1,76 @@
+{
+  "system": "macOS 26.5.2",
+  "test": "foreign real window into native fullscreen Space",
+  "accessibilityTrusted": 1,
+  "activeSpaceBefore": 262,
+  "fullscreenSpace": 262,
+  "originalWindowSpaces": [
+    1
+  ],
+  "floatingLevelObservedByController": {
+    "accessibilityTrusted": 1,
+    "levelBefore": 0,
+    "levelReadResult": 0,
+    "spacesBefore": [
+      1
+    ],
+    "window": 14438
+  },
+  "migration": {
+    "window": 14438,
+    "levelReadResult": 0,
+    "spacesBefore": [
+      1
+    ],
+    "accessibilityTrusted": 1,
+    "spacesAfter": [
+      1
+    ],
+    "levelBefore": 0,
+    "operationResult": 52529758400,
+    "targetSpace": 262
+  },
+  "activeSpacesAfter": [
+    262
+  ],
+  "windowMoved": false,
+  "fullscreenStayedActive": true,
+  "restoration": {
+    "window": 14438,
+    "levelReadResult": 0,
+    "spacesBefore": [
+      1
+    ],
+    "accessibilityTrusted": 1,
+    "spacesAfter": [
+      1
+    ],
+    "levelBefore": 0,
+    "operationResult": 48772126528,
+    "targetSpace": 1
+  },
+  "originalSpaceAfterAttempt": true,
+  "restorationVerifiedAfterMigration": false,
+  "floatingPreparation": {
+    "levelReadResult": 0,
+    "spacesAfter": [
+      1
+    ],
+    "levelAfterDelay": 1000,
+    "setLevelResult": 0,
+    "tagsAfter": 216172786413477889,
+    "levelBefore": 0,
+    "clearTagsResult": 0,
+    "spacesBefore": [
+      1
+    ],
+    "window": 14438,
+    "tagsBefore": 216172786413477889,
+    "accessibilityTrusted": 0,
+    "requestedConnection": 1498787,
+    "levelImmediatelyAfter": 1000,
+    "onScreenBefore": false,
+    "onScreenAfter": false,
+    "setTagsResult": 0
+  }
+}

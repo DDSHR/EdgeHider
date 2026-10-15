@@ -5,6 +5,8 @@ import SwiftUI
 final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     var statusItem: NSStatusItem?
     var settingsWindow: NSWindow?
+    private var terminationPollTimer: Timer?
+    private var terminationDeadline: TimeInterval = 0
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         // 不在 Dock 显示图标
@@ -27,6 +29,22 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
     func applicationWillTerminate(_ notification: Notification) {
         EdgeHiderService.shared.stop()
+    }
+
+    func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
+        if EdgeHiderService.shared.prepareForTermination() { return .terminateNow }
+        guard terminationPollTimer == nil else { return .terminateLater }
+        terminationDeadline = ProcessInfo.processInfo.systemUptime + 3
+        terminationPollTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] timer in
+            guard let self else { timer.invalidate(); return }
+            if EdgeHiderService.shared.prepareForTermination()
+                || ProcessInfo.processInfo.systemUptime >= self.terminationDeadline {
+                timer.invalidate()
+                self.terminationPollTimer = nil
+                NSApp.reply(toApplicationShouldTerminate: true)
+            }
+        }
+        return .terminateLater
     }
 
     // MARK: - 菜单栏
@@ -188,7 +206,7 @@ class AboutWindowController: NSWindowController, NSWindowDelegate {
         title.alignment = .center
         title.frame = NSRect(x: 20, y: 150, width: 320, height: 30)
 
-        let version = NSTextField(labelWithString: "版本 1.1.2")
+        let version = NSTextField(labelWithString: "版本 1.1.4")
         version.font = NSFont.systemFont(ofSize: 12)
         version.alignment = .center
         version.frame = NSRect(x: 20, y: 125, width: 320, height: 20)

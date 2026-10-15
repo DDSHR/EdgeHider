@@ -42,17 +42,20 @@ final class AnimationEngine {
         return WindowGeometry.converted(CGRect(origin: point, size: dimensions), primaryTop: primaryTop)
     }
 
-    func setAXFrame(_ frame: CGRect, of win: AXUIElement, screenFrame: CGRect) {
+    @discardableResult
+    func setAXFrame(_ frame: CGRect, of win: AXUIElement, screenFrame: CGRect) -> Bool {
         var size = frame.size
+        var sizeApplied = false
         if let value = AXValueCreate(.cgSize, &size) {
-            AXUIElementSetAttributeValue(win, kAXSizeAttribute as CFString, value)
+            sizeApplied = AXUIElementSetAttributeValue(win, kAXSizeAttribute as CFString, value) == .success
         }
         // 应用可能限制最小尺寸，使用实际高度计算位置。
         let actualSize = Self.frame(of: win)?.size ?? frame.size
         var point = WindowGeometry.converted(CGRect(origin: frame.origin, size: actualSize), primaryTop: Self.primaryTop).origin
-        if let value = AXValueCreate(.cgPoint, &point) {
-            AXUIElementSetAttributeValue(win, kAXPositionAttribute as CFString, value)
-        }
+        guard let value = AXValueCreate(.cgPoint, &point) else { return false }
+        let positionApplied = AXUIElementSetAttributeValue(win, kAXPositionAttribute as CFString, value) == .success
+        let sizeAlreadyMatches = abs(actualSize.width - frame.width) <= 2 && abs(actualSize.height - frame.height) <= 2
+        return positionApplied && (sizeApplied || sizeAlreadyMatches)
     }
 
     func forceHidePosition(_ frame: CGRect, of win: AXUIElement, screenFrame: CGRect) {

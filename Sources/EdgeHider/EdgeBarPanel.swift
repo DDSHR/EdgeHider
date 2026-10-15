@@ -20,8 +20,10 @@ class EdgeBarPanel: NSPanel {
                    styleMask: [.borderless, .nonactivatingPanel], backing: .buffered, defer: false)
         isReleasedWhenClosed = false
         isOpaque = false; hasShadow = true; backgroundColor = .clear
-        level = .statusBar + 1
-        collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
+        // 全屏 Space 属于前台应用；标签必须能加入其他应用的全屏 Space，
+        // 且层级要高于全屏窗口，否则窗口仍在管理中但用户看不到唤回入口。
+        level = .screenSaver
+        collectionBehavior = [.canJoinAllApplications, .canJoinAllSpaces, .fullScreenAuxiliary, .stationary]
         isMovable = false; ignoresMouseEvents = false
 
         let iv = NSImageView(frame: CGRect(x: (w - 20)/2, y: (h - 20)/2, width: 20, height: 20))
