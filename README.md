@@ -1,16 +1,30 @@
 # EdgeHider — macOS 窗口边缘自动隐藏工具
 
+![EdgeHider：窗口靠边收起，需要时轻轻唤回](docs/images/cover.png)
+
 把任意应用的窗口拖到屏幕边缘，它会自动缩进屏幕外；鼠标再靠近那条边，窗口又自动弹出来。复刻老版 PC QQ 桌面边栏的体验，并做成"万能版"——自由选择对哪些应用生效、每个应用配不同动画。
 
 **当前版本 v1.1.4**
 
-1.1.4 增加锁屏/唤醒后的窗口状态恢复。29 项自动化测试通过；真实锁屏/解锁场景仍需实机回归。
+1.1.4 增加锁屏/唤醒后的窗口状态恢复。29 项自动化测试通过；锁屏/解锁恢复已由项目维护者实机验证通过。
 
 **已知限制**：在其他应用的原生全屏 Space 内直接操作第三方真实窗口仍未实现，目前唤回可能切换桌面。相关求助见 [Issue #1](https://github.com/DDSHR/EdgeHider/issues/1)，实验代码与结果见 [FullscreenProbe](Tools/FullscreenProbe/README.md)。
 
 稳定性修复与兼容性说明见 [CHANGELOG.md](CHANGELOG.md)。
 
 运行回归测试：`swift test`。
+
+## 效果与动态演示
+
+以下为使用虚构内容制作的**功能示意图和动画，非实机截图或录屏**；实际界面、动画速度及第三方应用表现可能不同。不展示尚未实现的跨原生全屏窗口操作。
+
+![动态演示：靠边隐藏、悬停唤回、操作后移开收起](docs/images/edge-hide-demo.gif)
+
+![三步操作流程：靠边隐藏、悬停唤回、移开收起](docs/images/workflow.png)
+
+![功能概览：自选应用、多显示器、动画延时、锁屏恢复](docs/images/features.png)
+
+[下载最新 Mac 安装包](https://github.com/DDSHR/EdgeHider/releases/latest) · [展示素材与制作说明](docs/images/README.md)
 
 ## v1.1 新增
 
