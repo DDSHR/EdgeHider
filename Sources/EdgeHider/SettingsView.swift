@@ -78,8 +78,8 @@ struct SettingsView: View {
 
             HStack {
                 Text("隐藏时露出边条：")
-                Slider(value: $appList.globalSettings.peekStripWidth, in: 0...30)
-                Text(String(format: "%.0f px", appList.globalSettings.peekStripWidth)).frame(width: 50)
+                Slider(value: $appList.globalSettings.peekStripWidth, in: 0...30, step: 1)
+                Text(appList.globalSettings.peekStripWidth == 0 ? "完全隐藏" : String(format: "%.0f px", appList.globalSettings.peekStripWidth)).frame(width: 64)
             }
             .padding(.horizontal, 16)
 

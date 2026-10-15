@@ -54,9 +54,34 @@ final class WindowGeometryTests: XCTestCase {
             (.right, CGPoint(x: 1434, y: 200)), (.top, CGPoint(x: 200, y: 894)),
             (.bottom, CGPoint(x: 200, y: -294))]
         for (side, origin) in expected {
-            let hidden = WindowGeometry.hidden(frame, side: side, screen: main, peek: 6)
+            let hidden = WindowGeometry.hidden(frame, side: side, screen: main, peek: 5)
             XCTAssertEqual(hidden.origin, origin)
             XCTAssertEqual(hidden.size, frame.size)
+        }
+    }
+
+    func testZeroPeekKeepsMinimalIntersectionOnEveryEdgeAndDisplay() {
+        let frame = CGRect(x: 200, y: 200, width: 400, height: 300)
+        for screen in [main, CGRect(x: -1920, y: 900, width: 1920, height: 1080)] {
+            let aligned = WindowGeometry.aligned(frame, side: .left, screen: screen)
+            for side: HiddenSide in [.left, .right, .top, .bottom, .automatic] {
+                let hidden = WindowGeometry.hidden(aligned, side: side, screen: screen, peek: 0)
+                let overlap = hidden.intersection(screen)
+                XCTAssertFalse(overlap.isNull)
+                XCTAssertEqual(min(overlap.width, overlap.height), 1)
+                XCTAssertEqual(hidden.size, frame.size)
+            }
+        }
+    }
+
+    func testPeekSettingsMapToPositioningWidthPlusOne() {
+        let frame = CGRect(x: 200, y: 200, width: 400, height: 300)
+        for peek: CGFloat in [0, 1, 5, 10, 15, 20, 30] {
+            for side: HiddenSide in [.left, .right, .top, .bottom, .automatic] {
+                let hidden = WindowGeometry.hidden(frame, side: side, screen: main, peek: peek)
+                let overlap = hidden.intersection(main)
+                XCTAssertEqual(min(overlap.width, overlap.height), peek + 1)
+            }
         }
     }
 

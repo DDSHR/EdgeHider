@@ -46,6 +46,8 @@ enum WindowGeometry {
     }
 
     static func hidden(_ frame: CGRect, side: HiddenSide, screen: CGRect, peek: CGFloat) -> CGRect {
+        // 用户设置表示可见边条；定位值整体加 1，0（完全隐藏）对应 1。
+        let peek = peek + 1
         var result = frame
         switch side {
         case .left, .automatic: result.origin.x = screen.minX - frame.width + peek

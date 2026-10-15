@@ -84,7 +84,7 @@ struct GlobalSettings: Codable {
     var isMasterEnabled: Bool
     /// 热区宽度（鼠标靠近边缘多少像素内触发弹出）
     var hotZoneWidth: CGFloat
-    /// 隐藏时露出的边条宽度（像素，0 = 完全隐藏）
+    /// 隐藏时露出的边条宽度（0 = 完全隐藏；实际定位值为设置值 + 1）
     var peekStripWidth: CGFloat
     /// 是否在启动时登录
     var launchAtLogin: Bool
